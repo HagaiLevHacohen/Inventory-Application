@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+}
+
+.container > h2 {
+    font-size: 42px;
+}
+
+.container > p {
+    font-size: 18px;
+}
+
+.viewProducts, .viewCategories {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    height: 130px;
+    border-radius: 20px;
+    align-items: center;
+    font-size: 36px;
+    font-weight: bold;
+    background-size: 100%;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: background-size 0.3s ease;
+}
+
+.arrow {
+    position: relative;
+    transition: transform 0.3s ease;
+    top: -10px;
+    font-size: 62px;
+}
+
+.viewProducts {
+    background-position: top;
+    background-image: linear-gradient(rgba(255, 238, 238, 0.9), rgba(160, 255, 166, 0.9)), url("https://inventory-app-jbjm.onrender.com/images/food-bg.jpg");
+}
+
+.viewCategories {
+    background-position: bottom;
+    background-image: linear-gradient(rgba(194, 255, 197, 0.7), rgba(255, 255, 186, 0.9)), url("https://inventory-app-jbjm.onrender.com/images/food-bg.jpg");
+}
+
+
+@media (min-width: 1280px) {
+    /* Zoom background on hover */
+    .viewProducts:hover,
+    .viewCategories:hover {
+        background-size: 120%; /* increase to zoom in */
+    }
+
+    /* Move the arrow to the right */
+    .viewProducts:hover .arrow,
+    .viewCategories:hover .arrow {
+        transform: translateX(10px);
+    }
+
+}

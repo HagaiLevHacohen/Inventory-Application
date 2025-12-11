@@ -2,11 +2,36 @@
 <html>
   <head>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/global.css">
+    <link rel="stylesheet" href="/index.css">
     <title>Homepage</title>
   </head>
   <body>
-    <div>
-      <%= title %>
+    <%- include("partials/header.ejs") %>
+    <div class="container">
+      <h2>Welcome</h2>
+      <p>Welcome to StockWise! Where all of your inventory needs are met. Here, you have full control over your products. You can add any product or category for your store, complete with color coding and custom images! Give it a try and be sure to leave a review in the app store!</p>
+      <div class="viewProducts">
+        <p class="name">View Products</p>
+        <p class="arrow">→</p>
+      </div>
+      <div class="viewCategories">
+        <p class="name">View Categories</p>
+        <p class="arrow">→</p>
+      </div>
     </div>
+
+    <script>
+      // Redirect when clicking the divs
+      document.querySelector(".viewProducts").addEventListener("click", () => {
+        window.location.href = "/products"; // replace with your route
+      });
+
+      document.querySelector(".viewCategories").addEventListener("click", () => {
+        window.location.href = "/categories"; // replace with your route
+      });
+    </script>
+    
+    <%- include("partials/footer.ejs") %>
   </body>
 </html>
