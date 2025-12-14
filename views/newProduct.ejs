@@ -17,36 +17,54 @@
                 <!-- Name -->
                 <label>
                     Name
-                    <input type="text" name="name" placeholder="Banana" required>
+                    <input type="text" name="name" placeholder="Banana" value="<%= values?.name || '' %>" required>
                 </label>
 
                 <!-- Price -->
                 <label>
                     Price
-                    <input type="text" name="price" placeholder="$1.50" required>
+                    <input type="number" name="price" step="0.01" placeholder="1.50" value="<%= values?.price || '' %>" required>
                 </label>
 
                 <!-- Brand -->
                 <label>
                     Brand
-                    <input type="text" name="brand" placeholder="Bakery Dough" required>
+                    <input type="text" name="brand" placeholder="Bakery Dough" value="<%= values?.brand || '' %>" required>
                 </label>
 
                 <!-- Quantity -->
                 <label>
                     Quantity
-                    <input type="text" name="quantity" placeholder="70" required>
+                    <input type="number" name="quantity" placeholder="70" value="<%= values?.quantity || '' %>" required>
+                </label>
+
+                <label>
+                    Emoji
+                    <input type="text" name="emoji" placeholder="🍌" value="<%= values?.emoji || '' %>" required>
                 </label>
 
                 <!-- Category -->
                 <label>
-                    Category
-                    <select name="category">
-                        <option value="">Select category</option>
-                        <option value="fruit">Fruit</option>
-                        <option value="vegetable">Vegetable</option>
-                    </select>
+                Category
+                <select name="category" required>
+                    <option value="">Select category</option>
+
+                    <% for (const category of categories) { %>
+                    <option value="<%= category.name %>"
+                        <%= values?.category === category.name ? 'selected' : '' %>>
+                        <%= category.name %>
+                    </option>
+                    <% } %>
+                </select>
                 </label>
+
+                <% if (errors && errors.length > 0) { %>
+                <ul class="errors">
+                    <% errors.forEach(err => { %>
+                    <li><%= err.msg %></li>
+                    <% }) %>
+                </ul>
+                <% } %>
 
                 <button type="submit">Add Product</button>
             </form>

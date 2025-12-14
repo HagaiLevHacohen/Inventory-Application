@@ -69,17 +69,17 @@
                 <% for (const product of products) { %>
                 <a href="/products/<%= product.product_id%>">
                     <div class="card">
-                        <div class="emoji">🍌</div>
+                        <div class="emoji"><%= product.emoji%></div>
                         <div class="itemContainer">
-                            <h3 class="name">Banana</h3>
-                            <p class="price">$1.5</p>
+                            <h3 class="name"><%= product.product_name%></h3>
+                            <p class="price">$<%= product.price%></p>
                         </div>
-                        <p class="brand">Brand: Bakery Dough</p>
-                        <p class="quantity">Quantity: 70</p>
-                        <div class="category" style="background-color: lightblue;">Fruit</div>
+                        <p class="brand">Brand: <%= product.brand%></p>
+                        <p class="quantity">Quantity: <%= product.quantity%></p>
+                        <div class="category" style="background-color: <%= product.color%>;"><%= product.category_name%></div>
                     </div>
                 </a>
-                <%} %>
+                <% } %>
             </div>
 
         </div>

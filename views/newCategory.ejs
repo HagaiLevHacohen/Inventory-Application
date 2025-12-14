@@ -17,16 +17,24 @@
                 <!-- Category name -->
                 <label>
                     Category name
-                    <input type="text" name="name" placeholder="Fruits" required>
+                    <input type="text" name="name" placeholder="Fruits" value="<%= values?.name || '' %>" required>
                 </label>
 
                 <!-- Category color -->
                 <label class="colorPicker">
                     Color
                     <div class="colorInput">
-                        <input type="color" name="color" value="#ff0000">
+                        <input type="color" name="color" value="#ff0000" value="<%= values?.color || '#ff0000' %>" required>
                     </div>
                 </label>
+
+                <% if (errors && errors.length > 0) { %>
+                <ul class="errors">
+                    <% errors.forEach(err => { %>
+                    <li><%= err.msg %></li>
+                    <% }) %>
+                </ul>
+                <% } %>
 
                 <button type="submit">Add Category</button>
             </form>

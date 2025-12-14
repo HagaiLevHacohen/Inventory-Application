@@ -14,14 +14,18 @@
             <div class="addCategory button"><a href="/categories/new">Add a Category</a></div>
         </div>
         <div class="main">
-            <div class="card">
-              <h3>Fruits</h3>
-              <p>Products: 13</p>
-              <div class="colorContainer">
-                  <p> Color: </p>
-                  <span class="color" style="background-color: red;"></span>
+            <% for (const category of categories) { %>
+            <a href="/categories/<%= category.id%>">
+              <div class="card">
+                <h3><%= category.name%></h3>
+                <p>Products: <%= category.product_count%></p>
+                <div class="colorContainer">
+                    <p> Color: </p>
+                    <span class="color" style="background-color: <%= category.color%>;"></span>
+                </div>
               </div>
-            </div>
+            </a>
+            <% } %>
         </div>
     </div>
     <%- include("partials/footer.ejs") %>

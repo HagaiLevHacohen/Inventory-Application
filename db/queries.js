@@ -15,12 +15,13 @@ async function getAllProducts() {
 
 async function getAllCategories() {
   const { rows } = await pool.query(`
-    SELECT t1.*, t2.product_count
+    SELECT t1.*, COALESCE(t2.product_count, 0) AS product_count
     FROM categories AS t1
     LEFT JOIN (
-    SELECT category_id, COUNT(*) AS product_count
-    FROM products
-    GROUP BY category_id) AS t2
+        SELECT category_id, COUNT(*) AS product_count
+        FROM products
+        GROUP BY category_id
+    ) AS t2
     ON t1.id = t2.category_id
   `);
   return rows;
@@ -119,6 +120,7 @@ async function deleteCategory(categoryId) {
 module.exports = {
   getAllProducts,
   getAllCategories,
+  getCategoryID,
   getProduct,
   insertProduct,
   updateProduct,

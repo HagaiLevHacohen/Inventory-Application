@@ -61,11 +61,16 @@
 /* Products */
 
 .products {
+    flex: 1;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 190px));
     align-items: start;
     gap: 20px;
     padding: 20px;
+}
+
+.products > a {
+  display: block; /* Make anchors block-level so grid sizing works */
 }
 
 .products .card {

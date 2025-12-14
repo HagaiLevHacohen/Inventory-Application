@@ -30,6 +30,10 @@
     gap: 20px;
 }
 
+.main > a {
+  display: block; /* Make anchors block-level so grid sizing works */
+}
+
 .card {
     width: 240px;
     padding: 18px 20px;
