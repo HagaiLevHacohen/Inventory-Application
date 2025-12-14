@@ -4,6 +4,8 @@ require("dotenv").config();
 const express = require("express");
 const path = require("node:path");
 const indexRouter = require("./routes/indexRouter");
+const productsRouter = require("./routes/productsRouter");
+const categoriesRouter = require("./routes/categoriesRouter");
 
 // app setup
 const app = express();
@@ -17,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routers
 app.use("/", indexRouter);
+app.use("/products", productsRouter);
+app.use("/categories", categoriesRouter);
 
 
 

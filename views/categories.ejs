@@ -1,0 +1,29 @@
+<!-- index.ejs -->
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/global.css">
+    <link rel="stylesheet" href="/categories.css">
+    <title>Categories</title>
+  </head>
+  <body>
+    <%- include("partials/header.ejs") %>
+    <div class="container">
+        <div class="heading">
+            <h2>Categories</h2>
+            <div class="addCategory button"><a href="/categories/new">Add a Category</a></div>
+        </div>
+        <div class="main">
+            <div class="card">
+              <h3>Fruits</h3>
+              <p>Products: 13</p>
+              <div class="colorContainer">
+                  <p> Color: </p>
+                  <span class="color" style="background-color: red;"></span>
+              </div>
+            </div>
+        </div>
+    </div>
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>

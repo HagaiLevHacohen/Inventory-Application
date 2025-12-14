@@ -13,6 +13,7 @@
   --color-primary-light: #66c28b; /* Lighter green for hover or accents */
   --color-secondary: #2d9cdb;  /* Blue for contrast elements */
   --color-accent: #f39c12;     /* Warm orange for highlights/buttons */
+  --color-accent-secondary: #8e44ad;  /* Rich purple */
   --color-text: #333333;        /* Main text */
   --color-text-light: #777777;  /* Lighter text */
   --color-border: #dcdcdc;      /* Subtle borders */
@@ -61,7 +62,6 @@ body {
 
 .header > nav > a {
   font-size: 18px;
-  text-decoration: none;
   color: inherit;
   transition: transform 0.2s ease-in-out;
 }
@@ -79,7 +79,7 @@ body {
 }
 
 .footer {
-  height: 100px;
+  height: 80px;
   background-color: var(--color-primary-light);
   display: flex;
   justify-content: center;

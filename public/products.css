@@ -1,0 +1,123 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.heading > h2 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.heading > .addProduct {
+    width: 120px;
+    height: 36px;
+    background-color: var(--color-primary-light);
+}
+
+.main {
+    display: flex;
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+}
+
+/* Sidebar*/
+.sidebar {
+    background-color: #d1e5ff;
+    padding: 10px;
+;
+}
+
+.sidebar > form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar > form fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar > form legend {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sidebar > form > button {
+    background-color: var(--color-primary-light);
+    align-self: center;
+}
+
+
+/* Products */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 190px));
+    align-items: start;
+    gap: 20px;
+    padding: 20px;
+}
+
+.products .card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 5px;
+    background-color: rgba(154, 197, 154, 0.295);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+    transition:
+        transform 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out;
+}
+
+.products .card > .emoji {
+    padding: 10px 10px 0 10px;
+    font-size: 72px;
+    text-align: center;
+}
+
+.products .card > .itemContainer {
+    padding: 0 10px 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.products .card .name,
+.products .card .price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.products .card .brand,
+.products .card .quantity {
+    padding: 0 10px 0 10px;
+}
+
+.products .card .category {
+    font-size: 18;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+@media (min-width: 1280px) {
+    .products .card:hover {
+        transform: translateY(-6px);
+        box-shadow:
+            0 14px 30px rgba(0, 0, 0, 0.12);
+    }
+    .products .card:active {
+        transform: scale(0.95);
+    }
+}
