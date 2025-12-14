@@ -4,7 +4,7 @@ const pool = require("./pool");
 async function getAllProducts() {
   const { rows } = await pool.query(`
     SELECT 
-    products.id AS product_id, products.name AS product_name, products.price, products.brand, products.quantity,
+    products.id AS product_id, products.name AS product_name, products.price, products.brand, products.quantity, products.emoji,
     categories.id AS category_id, categories.name AS category_name, categories.color
     FROM products 
     INNER JOIN categories 
@@ -38,7 +38,7 @@ async function getCategoryID(categoryName) {
 async function getProduct(productId) {
   const { rows } = await pool.query(`
     SELECT 
-    products.id AS product_id, products.name AS product_name, products.price, products.brand, products.quantity,
+    products.id AS product_id, products.name AS product_name, products.price, products.brand, products.quantity, products.emoji,
     categories.id AS category_id, categories.name AS category_name, categories.color
     FROM products 
     INNER JOIN categories 
@@ -48,13 +48,15 @@ async function getProduct(productId) {
   return rows[0];
 }
 
-async function insertProduct({name, price, brand, quantity, categoryName}) {
+async function insertProduct({name, price, brand, quantity, emoji, categoryName}) {
   const categoryId = await getCategoryID(categoryName);
   if (!categoryId) throw new Error(`Category "${categoryName}" not found`);
-  await pool.query("INSERT INTO products (name, price, brand, quantity, category_id) VALUES ($1, $2, $3, $4, $5)", [name, price, brand, quantity, categoryId]);
+  await pool.query(
+  "INSERT INTO products (name, price, brand, quantity, emoji, category_id) VALUES ($1, $2, $3, $4, $5, $6)",
+  [name, price, brand, quantity, emoji, categoryId]);
 }
 
-async function updateProduct({ productId, name, price, brand, quantity, categoryName }) {
+async function updateProduct({ productId, name, price, brand, quantity, emoji, categoryName }) {
   const categoryId = await getCategoryID(categoryName);
   if (!categoryId) throw new Error(`Category "${categoryName}" not found`);
   const query = `
@@ -63,11 +65,12 @@ async function updateProduct({ productId, name, price, brand, quantity, category
         price = $2,
         brand = $3,
         quantity = $4,
-        category_id = $5
-    WHERE id = $6
+        emoji = $5,
+        category_id = $6
+    WHERE id = $7
     RETURNING *;
   `;
-  const values = [name, price, brand, quantity, categoryId, productId];
+  const values = [name, price, brand, quantity, emoji, categoryId, productId];
 
   const { rows } = await pool.query(query, values);
   return rows[0]; // Return the updated product

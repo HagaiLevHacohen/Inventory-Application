@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS products (
   price FLOAT NOT NULL,
   brand VARCHAR(255) NOT NULL,
   quantity INTEGER NOT NULL,
+  emoji TEXT,
   category_id INTEGER NOT NULL REFERENCES categories(id)
 );
 
@@ -23,10 +24,10 @@ INSERT INTO categories (name, color)
 VALUES
   ('Fruit', '#ff0000');
 
-INSERT INTO products (name, price, brand, quantity, category_id)
+INSERT INTO products (name, price, brand, quantity, emoji, category_id)
 VALUES
-  ('Banana', 1.50, 'Bakery Dough', 16, 1),
-  ('Apple', 2.00, 'Salemandra', 6, 1);
+  ('Banana', 1.50, 'Bakery Dough', 16, '🍌', 1),
+  ('Apple', 2.00, 'Salemandra', 6, '🍏', 1);
 `;
 
 async function main() {
