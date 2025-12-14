@@ -1,0 +1,57 @@
+<!-- newProduct.ejs -->
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/global.css">
+    <link rel="stylesheet" href="/newProduct.css">
+    <title>Categories</title>
+  </head>
+  <body>
+    <%- include("partials/header.ejs") %>
+    <div class="container">
+        <div class="heading">
+            <h2>Add a Product</h2>
+        </div>
+        <div class="main">
+            <form class="productForm" action="/products/new" method="post">
+                <!-- Name -->
+                <label>
+                    Name
+                    <input type="text" name="name" placeholder="Banana" required>
+                </label>
+
+                <!-- Price -->
+                <label>
+                    Price
+                    <input type="text" name="price" placeholder="$1.50" required>
+                </label>
+
+                <!-- Brand -->
+                <label>
+                    Brand
+                    <input type="text" name="brand" placeholder="Bakery Dough" required>
+                </label>
+
+                <!-- Quantity -->
+                <label>
+                    Quantity
+                    <input type="text" name="quantity" placeholder="70" required>
+                </label>
+
+                <!-- Category -->
+                <label>
+                    Category
+                    <select name="category">
+                        <option value="">Select category</option>
+                        <option value="fruit">Fruit</option>
+                        <option value="vegetable">Vegetable</option>
+                    </select>
+                </label>
+
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+    </div>
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>

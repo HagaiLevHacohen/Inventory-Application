@@ -9,5 +9,11 @@ const getCategories = async (req, res) => {
   res.render("categories", {});
 };
 
+const getCategoriesNew = async (req, res) => {
+  // const messages = await db.getAllMessages();
+  // console.log(messages)
+  res.render("newCategory", {});
+};
 
-module.exports = { getCategories };
+
+module.exports = { getCategories, getCategoriesNew };

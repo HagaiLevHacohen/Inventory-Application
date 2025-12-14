@@ -9,5 +9,11 @@ const getProducts = async (req, res) => {
   res.render("products", {});
 };
 
+const getProductsNew = async (req, res) => {
+  // const messages = await db.getAllMessages();
+  // console.log(messages)
+  res.render("newProduct", {});
+};
 
-module.exports = { getProducts };
+
+module.exports = { getProducts, getProductsNew };
