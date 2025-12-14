@@ -1,31 +1,32 @@
 #! /usr/bin/env node
 
 const { Client } = require("pg");
+require("dotenv").config();
 
 const SQL = `
-CREATE TABLE IF NOT EXISTS products (
-  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR(255),
-  price FLOAT,
-  brand VARCHAR(255),
-  quantity INTEGER,
-  categoryID INTEGER FOREIGN KEY
-);
-
-INSERT INTO products (name, price, brand, quantity, category) 
-VALUES
-  ('Banana', 1.5, 'Bakery Dough', 16, 1),
-  ('Apple', 2.0, 'Salemandra', 6, 1);
-
 CREATE TABLE IF NOT EXISTS categories (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR(255),
-  color VARCHAR(255)
+  name VARCHAR(255) NOT NULL,
+  color VARCHAR(7) NOT NULL
 );
 
-INSERT INTO categories (name, color) 
+CREATE TABLE IF NOT EXISTS products (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(255) NOT NULL,
+  price FLOAT NOT NULL,
+  brand VARCHAR(255) NOT NULL,
+  quantity INTEGER NOT NULL,
+  category_id INTEGER NOT NULL REFERENCES categories(id)
+);
+
+INSERT INTO categories (name, color)
 VALUES
   ('Fruit', '#ff0000');
+
+INSERT INTO products (name, price, brand, quantity, category_id)
+VALUES
+  ('Banana', 1.50, 'Bakery Dough', 16, 1),
+  ('Apple', 2.00, 'Salemandra', 6, 1);
 `;
 
 async function main() {
