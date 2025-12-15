@@ -7,8 +7,24 @@ const CustomNotFoundError = require("../errors/CustomNotFoundError");
 
 const getProducts = async (req, res) => {
   const products = await db.getAllProducts();
+  const categories = await db.getAllCategories();
   console.log(products)
-  res.render("products", {products: products});
+  res.render("products", {products: products, categories: categories});
+};
+
+const getViewProduct = async (req, res) => {
+  const product = await db.getProduct(req.params.productID);
+  console.log(product)
+  res.render("viewProduct", {product: product});
+};
+
+const postViewProduct = async (req, res) => {
+  if (req.query._method === 'DELETE') {
+    await db.deleteProduct(req.params.productID);
+    return res.redirect('/products');
+  }
+
+  res.status(400).send('Invalid request');
 };
 
 const getProductsNew = async (req, res) => {
@@ -78,4 +94,4 @@ const postProductsNew = async (req, res) => {
   res.redirect("/products");
 };
 
-module.exports = { getProducts, getProductsNew, postProductsNew, validateProduct };
+module.exports = { getProducts, getProductsNew, postProductsNew, validateProduct, getViewProduct, postViewProduct };

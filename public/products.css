@@ -25,13 +25,15 @@
     display: flex;
     border: 2px solid var(--color-border);
     border-radius: 10px;
+    box-shadow: 0 0 25px rgb(95, 95, 95);
 }
 
 /* Sidebar*/
 .sidebar {
-    background-color: #d1e5ff;
+    position: sticky;
+    top: 20px;
     padding: 10px;
-;
+    align-self: start;
 }
 
 .sidebar > form {
@@ -67,6 +69,7 @@
     align-items: start;
     gap: 20px;
     padding: 20px;
+    border-left: 2px solid var(--color-border);
 }
 
 .products > a {
@@ -103,6 +106,10 @@
     font-weight: bold;
 }
 
+.products .card .price {
+    color: var(--color-primary);
+}
+
 .products .card .brand,
 .products .card .quantity {
     padding: 0 10px 0 10px;
@@ -114,6 +121,7 @@
     border-bottom-right-radius: 5px;
     text-align: center;
     font-weight: bold;
+    color: white;
 }
 
 @media (min-width: 1280px) {
