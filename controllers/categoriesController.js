@@ -4,27 +4,24 @@ const db = require("../db/queries");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
 const { body, validationResult, matchedData } = require("express-validator");
 
-
 const getCategories = async (req, res) => {
   const categories = await db.getAllCategories();
-  res.render("categories", {categories : categories});
+  res.render("categories", { categories: categories });
 };
 
 const getCategoriesNew = async (req, res) => {
-  res.render("newCategory", {values: {}, errors: []});
+  res.render("newCategory", { values: {}, errors: [] });
 };
 
 const getViewCategory = async (req, res) => {
   const category = await db.getCategory(req.params.categoryID);
-  res.render("viewCategory", {category: category});
+  res.render("viewCategory", { category: category });
 };
 
 const getEditCategory = async (req, res) => {
   const category = await db.getCategory(req.params.categoryID);
-  res.render("editCategory", {values: {}, errors: [], category: category});
+  res.render("editCategory", { values: {}, errors: [], category: category });
 };
-
-
 
 const validateCategory = [
   body("name")
@@ -34,7 +31,7 @@ const validateCategory = [
 
   body("color")
     .matches(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/)
-    .withMessage("Color must be a valid hex code, e.g., #ff0000")
+    .withMessage("Color must be a valid hex code, e.g., #ff0000"),
 ];
 
 const postCategoriesNew = async (req, res) => {
@@ -68,12 +65,17 @@ const postEditCategory = async (req, res) => {
 
   // Only use matchedData when validation PASSES
   const { name, color } = matchedData(req);
-  await db.updateCategory({ categoryId: req.params.categoryID ,name, color });
+  await db.updateCategory({ categoryId: req.params.categoryID, name, color });
 
   res.redirect("/categories");
 };
 
-
-
-
-module.exports = { getCategories, getCategoriesNew, postCategoriesNew, validateCategory, getViewCategory, getEditCategory, postEditCategory };
+module.exports = {
+  getCategories,
+  getCategoriesNew,
+  postCategoriesNew,
+  validateCategory,
+  getViewCategory,
+  getEditCategory,
+  postEditCategory,
+};

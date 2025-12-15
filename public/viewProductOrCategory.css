@@ -1,15 +1,14 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .heading > .returnProducts {
-    background-color: var(--color-primary-light);
-    width: 160px;
-    height: 40px;
+  background-color: var(--color-primary-light);
+  width: 160px;
+  height: 40px;
 }
-
 
 /* THE PRODUCT*/
 
@@ -94,7 +93,6 @@
   font-weight: bold;
   width: fit-content;
 }
-
 
 .product-actions {
   display: flex;

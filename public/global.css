@@ -1,50 +1,48 @@
 .inputText {
-    background-color: var(--color-bg-alt);
-    height: 40px;
-    border-radius: 10px;
-    border: none;
-    padding-left: 7px;
-    font-size: 14px;
-    font-family: inherit;
+  background-color: var(--color-bg-alt);
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  padding-left: 7px;
+  font-size: 14px;
+  font-family: inherit;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 fieldset {
-    border: none;
+  border: none;
 }
 
 .button {
-    width: 100px;
-    height: 30px;
-    background-color: var(--color-bg);
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
-    border: none;
-    border-radius: 20px;
-    transition: box-shadow 0.2s ease-in-out;
-    font-family: inherit;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100px;
+  height: 30px;
+  background-color: var(--color-bg);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  border: none;
+  border-radius: 20px;
+  transition: box-shadow 0.2s ease-in-out;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 1280px) {
-    .button:hover {
-        box-shadow: 0 0 10px 4px var(--color-accent);
-    }
-    .button:active {
-        transform: scale(0.9);
-    }
+  .button:hover {
+    box-shadow: 0 0 10px 4px var(--color-accent);
+  }
+  .button:active {
+    transform: scale(0.9);
+  }
 }
 
 @media (min-width: 600px) and (max-width: 1280px) {
-
 }
 
 @media (max-width: 600px) {
-
 }

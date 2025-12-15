@@ -1,19 +1,16 @@
 const pool = require("./pool");
 
-
 async function getAllProducts(requestQuery) {
   const values = [];
-  let whereClause = '';
-  let orderClause = '';
+  let whereClause = "";
+  let orderClause = "";
   const categories = Array.isArray(requestQuery.category)
-  ? requestQuery.category
-  : requestQuery.category
-    ? [requestQuery.category]
-    : [];
+    ? requestQuery.category
+    : requestQuery.category
+      ? [requestQuery.category]
+      : [];
   if (categories.length > 0) {
-    const placeholders = categories
-      .map((_, i) => `$${i + 1}`)
-      .join(', ');
+    const placeholders = categories.map((_, i) => `$${i + 1}`).join(", ");
 
     whereClause = `WHERE categories.name IN (${placeholders})`;
     values.push(...categories);
@@ -30,7 +27,7 @@ async function getAllProducts(requestQuery) {
   }
 
   if (orderParts.length > 0) {
-    orderClause = `ORDER BY ${orderParts.join(', ')}`;
+    orderClause = `ORDER BY ${orderParts.join(", ")}`;
   }
 
   const query = `
@@ -54,7 +51,6 @@ async function getAllProducts(requestQuery) {
   return rows;
 }
 
-
 async function getAllCategories() {
   const { rows } = await pool.query(`
     SELECT t1.*, COALESCE(t2.product_count, 0) AS product_count
@@ -70,16 +66,20 @@ async function getAllCategories() {
 }
 
 async function getCategoryID(categoryName) {
-  const { rows } = await pool.query(`
+  const { rows } = await pool.query(
+    `
     SELECT id 
     FROM categories 
     WHERE categories.name = $1
-  `, [categoryName]);
+  `,
+    [categoryName],
+  );
   return rows[0] ? rows[0].id : null;
 }
 
 async function getProduct(productId) {
-  const { rows } = await pool.query(`
+  const { rows } = await pool.query(
+    `
     SELECT 
     products.id AS product_id, products.name AS product_name, products.price, products.brand, products.quantity, products.emoji,
     categories.id AS category_id, categories.name AS category_name, categories.color
@@ -87,29 +87,45 @@ async function getProduct(productId) {
     INNER JOIN categories 
     ON (products.category_id = categories.id)
     WHERE products.id = $1
-  `, [productId]);
+  `,
+    [productId],
+  );
   return rows[0];
 }
 
 async function getProductByName(productName) {
-  const { rows } = await pool.query(
-    `SELECT * FROM products WHERE name = $1`,
-    [productName]
-  );
+  const { rows } = await pool.query(`SELECT * FROM products WHERE name = $1`, [
+    productName,
+  ]);
 
   return rows[0] ?? null;
 }
 
-
-async function insertProduct({name, price, brand, quantity, emoji, categoryName}) {
+async function insertProduct({
+  name,
+  price,
+  brand,
+  quantity,
+  emoji,
+  categoryName,
+}) {
   const categoryId = await getCategoryID(categoryName);
   if (!categoryId) throw new Error(`Category "${categoryName}" not found`);
   await pool.query(
-  "INSERT INTO products (name, price, brand, quantity, emoji, category_id) VALUES ($1, $2, $3, $4, $5, $6)",
-  [name, price, brand, quantity, emoji, categoryId]);
+    "INSERT INTO products (name, price, brand, quantity, emoji, category_id) VALUES ($1, $2, $3, $4, $5, $6)",
+    [name, price, brand, quantity, emoji, categoryId],
+  );
 }
 
-async function updateProduct({ productId, name, price, brand, quantity, emoji, categoryName }) {
+async function updateProduct({
+  productId,
+  name,
+  price,
+  brand,
+  quantity,
+  emoji,
+  categoryName,
+}) {
   const categoryId = await getCategoryID(categoryName);
   if (!categoryId) throw new Error(`Category "${categoryName}" not found`);
   const query = `
@@ -134,7 +150,8 @@ async function deleteProduct(productId) {
 }
 
 async function getCategory(categoryId) {
-  const { rows } = await pool.query(`
+  const { rows } = await pool.query(
+    `
     SELECT t1.*, t2.product_count
     FROM categories AS t1
     LEFT JOIN (
@@ -143,12 +160,17 @@ async function getCategory(categoryId) {
     GROUP BY category_id) AS t2
     ON t1.id = t2.category_id
     WHERE t1.id = $1
-  `, [categoryId]);
+  `,
+    [categoryId],
+  );
   return rows[0];
 }
 
-async function insertCategory({name, color}) {
-  await pool.query("INSERT INTO categories (name, color) VALUES ($1, $2)", [name, color]);
+async function insertCategory({ name, color }) {
+  await pool.query("INSERT INTO categories (name, color) VALUES ($1, $2)", [
+    name,
+    color,
+  ]);
 }
 
 async function updateCategory({ categoryId, name, color }) {
@@ -166,7 +188,9 @@ async function updateCategory({ categoryId, name, color }) {
 }
 
 async function deleteCategory(categoryId) {
-  await pool.query("DELETE FROM categories WHERE categories.id = $1", [categoryId]);
+  await pool.query("DELETE FROM categories WHERE categories.id = $1", [
+    categoryId,
+  ]);
 }
 
 module.exports = {
@@ -181,5 +205,5 @@ module.exports = {
   insertCategory,
   updateCategory,
   deleteCategory,
-  getProductByName
+  getProductByName,
 };
