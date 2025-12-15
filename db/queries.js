@@ -91,6 +91,16 @@ async function getProduct(productId) {
   return rows[0];
 }
 
+async function getProductByName(productName) {
+  const { rows } = await pool.query(
+    `SELECT * FROM products WHERE name = $1`,
+    [productName]
+  );
+
+  return rows[0] ?? null;
+}
+
+
 async function insertProduct({name, price, brand, quantity, emoji, categoryName}) {
   const categoryId = await getCategoryID(categoryName);
   if (!categoryId) throw new Error(`Category "${categoryName}" not found`);
@@ -171,4 +181,5 @@ module.exports = {
   insertCategory,
   updateCategory,
   deleteCategory,
+  getProductByName
 };
