@@ -1,0 +1,69 @@
+<!-- viewCategory.ejs -->
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/global.css">
+    <link rel="stylesheet" href="/viewProductOrCategory.css">
+    <title>View Category</title>
+  </head>
+  <body>
+    <%- include("partials/header.ejs") %>
+
+    <div class="container">
+      <div class="heading">
+        <a class="returnProducts button" href="/categories">Return to Categories</a>
+      </div>
+
+      <div class="main">
+        <div class="product-card category-card">
+          <div class="product-header">
+            <div class="product-title">
+              <h2><%= category.name %></h2>
+              <span class="brand">Products: <%= category.product_count %></span>
+            </div>
+          </div>
+
+          <div class="product-details">
+            <div class="detail color-detail">
+              <span class="label">Color</span>
+              <span
+                class="category-badge"
+                data-color="<%= category.color %>"
+                style="background-color: <%= category.color %>;"
+              >
+                <%= category.color %>
+              </span>
+            </div>
+          </div>
+
+          <div class="product-actions">
+            <a
+              class="button edit-button"
+              href="/categories/edit/<%= category.id %>"
+            >
+              ✏️ Edit
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include("partials/footer.ejs") %>
+
+    <script>
+      // Auto text color based on background luminance
+      document.querySelectorAll('.category-badge').forEach(badge => {
+        const bg = badge.dataset.color;
+        if (!bg) return;
+
+        const hex = bg.replace('#', '');
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+
+        const luminance = 0.299*r + 0.587*g + 0.114*b;
+        badge.style.color = luminance < 140 ? '#ffffff' : '#333333';
+      });
+    </script>
+  </body>
+</html>

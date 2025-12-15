@@ -32,6 +32,12 @@ const getProductsNew = async (req, res) => {
   res.render("newProduct", {categories: categories, values: {}, errors: []});
 };
 
+const getEditProduct = async (req, res) => {
+  const categories = await db.getAllCategories();
+  const product = await db.getProduct(req.params.productID);
+  res.render("editProduct", {categories: categories, values: {}, product: product, errors: []});
+};
+
 const validateProduct = [
   body("name")
     .trim()
@@ -94,4 +100,29 @@ const postProductsNew = async (req, res) => {
   res.redirect("/products");
 };
 
-module.exports = { getProducts, getProductsNew, postProductsNew, validateProduct, getViewProduct, postViewProduct };
+const postEditProduct = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const categories = await db.getAllCategories();
+    const product = await db.getProduct(req.params.productID);
+    
+    return res.render("editProduct", {
+      categories: categories,
+      errors: errors.array(),
+      values: req.body,
+      product: product,
+    });
+  }
+
+  // Only use matchedData when validation PASSES
+  const { name, price, brand, quantity, emoji, category } = matchedData(req);
+
+  await db.updateProduct({productId: req.params.productID,  name, price, brand, quantity, emoji, categoryName: category });
+
+  res.redirect("/products");
+};
+
+module.exports = { getProducts, getProductsNew, postProductsNew, validateProduct, getViewProduct, postViewProduct,
+  getEditProduct, postEditProduct
+ };

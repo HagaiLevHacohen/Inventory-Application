@@ -15,6 +15,12 @@ const getCategoriesNew = async (req, res) => {
   res.render("newCategory", {values: {}, errors: []});
 };
 
+const getViewCategory = async (req, res) => {
+  const category = await db.getCategory(req.params.categoryID);
+  console.log(category)
+  res.render("viewCategory", {category: category});
+};
+
 
 const validateCategory = [
   body("name")
@@ -48,4 +54,4 @@ const postCategoriesNew = async (req, res) => {
 
 
 
-module.exports = { getCategories, getCategoriesNew, postCategoriesNew, validateCategory };
+module.exports = { getCategories, getCategoriesNew, postCategoriesNew, validateCategory, getViewCategory };
