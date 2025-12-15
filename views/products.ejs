@@ -21,11 +21,11 @@
                     <fieldset>
                         <legend>Sort By Price</legend>
                         <label>
-                            <input type="radio" name="price_sort" value="asc">
+                            <input type="radio" name="price_sort" value="ASC">
                             Ascending
                         </label>
                         <label>
-                            <input type="radio" name="price_sort" value="desc">
+                            <input type="radio" name="price_sort" value="DESC">
                             Descending
                         </label>
                     </fieldset>
@@ -33,11 +33,11 @@
                     <fieldset>
                         <legend>Sort By Name</legend>
                         <label>
-                            <input type="radio" name="name_sort" value="asc">
+                            <input type="radio" name="name_sort" value="ASC">
                             Ascending
                         </label>
                         <label>
-                            <input type="radio" name="name_sort" value="desc">
+                            <input type="radio" name="name_sort" value="DESC">
                             Descending
                         </label>
                     </fieldset>
@@ -46,7 +46,7 @@
                         <legend>Filter By Category</legend>
                         <% for (const category of categories) { %>
                         <label>
-                            <input type="checkbox" name="category[]" value="<%= category.name %>">
+                            <input type="checkbox" name="category" value="<%= category.name %>">
                             <%= category.name %>
                         </label>
                         <% } %>

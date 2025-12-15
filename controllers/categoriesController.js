@@ -7,7 +7,6 @@ const { body, validationResult, matchedData } = require("express-validator");
 
 const getCategories = async (req, res) => {
   const categories = await db.getAllCategories();
-  console.log(categories)
   res.render("categories", {categories : categories});
 };
 
@@ -17,13 +16,11 @@ const getCategoriesNew = async (req, res) => {
 
 const getViewCategory = async (req, res) => {
   const category = await db.getCategory(req.params.categoryID);
-  console.log(category)
   res.render("viewCategory", {category: category});
 };
 
 const getEditCategory = async (req, res) => {
   const category = await db.getCategory(req.params.categoryID);
-  console.log(category)
   res.render("editCategory", {values: {}, errors: [], category: category});
 };
 

@@ -1,17 +1,59 @@
 const pool = require("./pool");
 
 
-async function getAllProducts() {
-  const { rows } = await pool.query(`
+async function getAllProducts(requestQuery) {
+  const values = [];
+  let whereClause = '';
+  let orderClause = '';
+  const categories = Array.isArray(requestQuery.category)
+  ? requestQuery.category
+  : requestQuery.category
+    ? [requestQuery.category]
+    : [];
+  if (categories.length > 0) {
+    const placeholders = categories
+      .map((_, i) => `$${i + 1}`)
+      .join(', ');
+
+    whereClause = `WHERE categories.name IN (${placeholders})`;
+    values.push(...categories);
+  }
+
+  const orderParts = [];
+
+  if (requestQuery.price_sort) {
+    orderParts.push(`products.price ${requestQuery.price_sort}`);
+  }
+
+  if (requestQuery.name_sort) {
+    orderParts.push(`products.name ${requestQuery.name_sort}`);
+  }
+
+  if (orderParts.length > 0) {
+    orderClause = `ORDER BY ${orderParts.join(', ')}`;
+  }
+
+  const query = `
     SELECT 
-    products.id AS product_id, products.name AS product_name, products.price, products.brand, products.quantity, products.emoji,
-    categories.id AS category_id, categories.name AS category_name, categories.color
-    FROM products 
-    INNER JOIN categories 
-    ON (products.category_id = categories.id)
-  `);
+      products.id AS product_id,
+      products.name AS product_name,
+      products.price,
+      products.brand,
+      products.quantity,
+      products.emoji,
+      categories.id AS category_id,
+      categories.name AS category_name,
+      categories.color
+    FROM products
+    INNER JOIN categories ON products.category_id = categories.id
+    ${whereClause}
+    ${orderClause}
+  `;
+
+  const { rows } = await pool.query(query, values);
   return rows;
 }
+
 
 async function getAllCategories() {
   const { rows } = await pool.query(`

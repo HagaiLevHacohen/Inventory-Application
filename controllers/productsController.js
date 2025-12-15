@@ -6,15 +6,13 @@ const emojiRegex = require("emoji-regex");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
 
 const getProducts = async (req, res) => {
-  const products = await db.getAllProducts();
+  const products = await db.getAllProducts(req.query);
   const categories = await db.getAllCategories();
-  console.log(products)
   res.render("products", {products: products, categories: categories});
 };
 
 const getViewProduct = async (req, res) => {
   const product = await db.getProduct(req.params.productID);
-  console.log(product)
   res.render("viewProduct", {product: product});
 };
 
