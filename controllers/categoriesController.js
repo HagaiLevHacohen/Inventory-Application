@@ -21,6 +21,13 @@ const getViewCategory = async (req, res) => {
   res.render("viewCategory", {category: category});
 };
 
+const getEditCategory = async (req, res) => {
+  const category = await db.getCategory(req.params.categoryID);
+  console.log(category)
+  res.render("editCategory", {values: {}, errors: [], category: category});
+};
+
+
 
 const validateCategory = [
   body("name")
@@ -37,7 +44,7 @@ const postCategoriesNew = async (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.render("category/new", {
+    return res.render("newCategory", {
       errors: errors.array(),
       values: req.body,
     });
@@ -45,13 +52,31 @@ const postCategoriesNew = async (req, res) => {
 
   // Only use matchedData when validation PASSES
   const { name, color } = matchedData(req);
-
-  console.log({ name, color });
   await db.insertCategory({ name, color });
+
+  res.redirect("/categories");
+};
+
+const postEditCategory = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const category = await db.getCategory(req.params.categoryID);
+    return res.render("editCategory", {
+      errors: errors.array(),
+      values: req.body,
+      category: category,
+    });
+  }
+
+  // Only use matchedData when validation PASSES
+  const { name, color } = matchedData(req);
+  await db.updateCategory({ categoryId: req.params.categoryID ,name, color });
 
   res.redirect("/categories");
 };
 
 
 
-module.exports = { getCategories, getCategoriesNew, postCategoriesNew, validateCategory, getViewCategory };
+
+module.exports = { getCategories, getCategoriesNew, postCategoriesNew, validateCategory, getViewCategory, getEditCategory, postEditCategory };
