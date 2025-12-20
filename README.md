@@ -5,7 +5,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Express](https://img.shields.io/badge/Express-5.x-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 
-> Simple inventory management app with categories and items — full CRUD, server-rendered views, and admin-protected destructive actions.
+> Simple inventory management app with categories and items — full CRUD, and server-rendered views.
 
 [**🚀 Live Demo**](https://inventory-application-6eqj.onrender.com/)
 
